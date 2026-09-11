@@ -62,7 +62,18 @@ export const PeoplePage = () => {
       const aValue = a[sortField] ?? '';
       const bValue = b[sortField] ?? '';
 
-      const compare = aValue > bValue ? 1 : -1;
+      let compare: number;
+
+      if (sortField === 'born' || sortField === 'died') {
+        compare = Number(aValue) - Number(bValue);
+      } else {
+        compare =
+          String(aValue) > String(bValue)
+            ? 1
+            : String(aValue) < String(bValue)
+              ? -1
+              : 0;
+      }
 
       return order === 'desc' ? -compare : compare;
     });
